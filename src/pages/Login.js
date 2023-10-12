@@ -1,12 +1,24 @@
 import React, { useState } from "react";
+import { client } from "../supabase/client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  console.log(email);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await client.auth.signInWithOtp({
+        email,
+      });
+      console.log(result);
+    } catch (error) {
+      console.error(error.massage);
+    }
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           onChange={(e) => setEmail(e.target.value)}
           placeholder="email"
