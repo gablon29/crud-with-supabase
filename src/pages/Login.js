@@ -10,6 +10,7 @@ const Login = () => {
       const result = await client.auth.signInWithOtp({
         email,
       });
+      alert("revisa tu correo");
       console.log(result);
     } catch (error) {
       console.error(error.massage);
