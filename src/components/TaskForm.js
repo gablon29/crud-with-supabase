@@ -6,12 +6,15 @@ const TaskForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const {
+      data: { user },
+    } = await client.auth.getUser();
     const { data, error } = await client
-      .from('tareas')
-      .insert([{ name: taskName }])
+      .from("tareas")
+      .insert([{ name: taskName, user_id: user.id }])
       .select();
     console.log(data);
-    console.error(error);
+    console.error(error.message);
   };
 
   return (
