@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import { client } from "../supabase/client";
 
 const TaskForm = () => {
   const [taskName, setTaskName] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(taskName);
+    const { data, error } = await client
+      .from('tareas')
+      .insert([{ name: taskName }])
+      .select();
+    console.log(data);
+    console.error(error);
   };
 
   return (
